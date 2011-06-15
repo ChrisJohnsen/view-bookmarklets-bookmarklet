@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+      View Bookmarklet Bookmarklet
+    </title>
+    <style type="text/css">
+      #demo-overlay {
+        font: 12px sans-serif;
+        width: 300px;
+        background: #bbb;
+        color: #000;
+        padding: 50px;
+      }
+      #demo-container {
+        background: #eee;
+        border: 5px solid #999;
+        border-radius: 5px;
+        padding: 1em;
+      }
+      #demo-instructions {
+        font-size: 20px;
+      }
+      #demo-textarea {
+        width: 200px;
+        height: 125px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>A Bookmarklet to View Bookmarklets</h1>
+
+    <p id="try"> If you want to dive right in, here is the
+    <a href="javascript:void(function(){enableBookmarkletViewing=(function(){'use strict';function forEachJavaScriptAnchor(func){var i,anchorList=document.getElementsByTagName('a');for(i=0;i<anchorList.length;i++){if(anchorList[i].href.search(/^javascript:/)!==-1){func(anchorList[i]);}}}
+var displayTextarea;var displayBookmarkletSource=document.getElementById('vbb_textarea')?document.getElementById('vbb_textarea').vbb_dbs:(function(){var style,overlay=document.createElement('div');style=overlay.style;style.font='12px sans-serif';style.position='fixed';style.top=style.bottom=style.right=style.left='0';style.background='#bbb';style.color='#000';style.display='none';function showOverlay(e){e.stopPropagation();e.preventDefault();overlay.style.display='block';}
+function hideOverlay(e){e.stopPropagation();e.preventDefault();overlay.style.display='none';}
+overlay.addEventListener('click',hideOverlay,false);var container=document.createElement('div');style=container.style;style.background='#eee';style.margin='50px';style.border='5px solid #999';style['border-radius']='5px';style.padding='1em';container.addEventListener('click',function(e){e.stopPropagation();},false);var instructionContainer=document.createElement('div');instructionContainer.style['font-size']='20px';var disableContainer=document.createElement('div');var disableLink=document.createElement('a');disableLink.textContent='Tap or click here to disable bookmarklet viewing.';function disableViewing(e){forEachJavaScriptAnchor(function(a){a.removeEventListener('click',displayBookmarkletSource,false);});hideOverlay(e);}
+disableLink.addEventListener('click',disableViewing,false);disableLink.href='#';var returnText=document.createElement('div');returnText.style['margin-bottom']='5px';returnText.textContent='Tap or click outside to return to page.';var displayTextarea=document.createElement('textarea');style=displayTextarea.style;style.width='100%';style.height='70%';displayTextarea.id='vbb_textarea';displayTextarea.vbb_dbs=function(e){displayTextarea.value=unescape(this.href);showOverlay(e);displayTextarea.select();};disableContainer.insertBefore(disableLink,null);instructionContainer.insertBefore(disableContainer,null);instructionContainer.insertBefore(returnText,null);container.insertBefore(instructionContainer,null);container.insertBefore(displayTextarea,null);overlay.insertBefore(container,null);document.getElementsByTagName('body')[0].insertBefore(overlay,null);return displayTextarea.vbb_dbs;}());return function(){forEachJavaScriptAnchor(function(a){a.addEventListener('click',displayBookmarkletSource,false);});};}());;enableBookmarkletViewing();}())">bookmarklet</a>.
+    </p>
+
+    <h2 id="why">Why would anyone want this bookmarklet?</h2>
+
+    <p>
+    Mobile Safari in iOS only lets the user bookmark pages that have
+    been loaded. This means that there is no direct way to save
+    a bookmarklet in Mobile Safari since bookmarklets never actually
+    load&mdash;they just run in the context of the current page
+    instead of loading as a separate page.
+    </p>
+
+    <p>
+    The normal way to add a bookmarklet to Mobile Safari is to save
+    the bookmarklet with a desktop version of Safari and sync it to
+    Mobile Safari. There is, however, an indirect way to add
+    bookmarklets using only Mobile Safari:
+    </p>
+
+    <ol id="bookmarklet-steps">
+      <li>Save a normal bookmark to a normal page (any page).</li>
+      <li><div>Locate the code for the desired bookmarklet and copy
+          it (tap and hold to select the "source code", then tap
+          Copy).</div>
+          <div>This is the hard part since the source code for most
+          bookmarklets is never directly displayed (the bookmarklet
+          offered on this page was created to work around this
+          problem).</div></li>
+      <li>Edit the bookmark created in step #1:
+      <ol>
+        <li>Tap and hold on the URL. Lift your tap once the
+        positioning magnifier shows up.</li>
+        <li>Tap Select All in the selection pop up menu.</li>
+        <li>Tap Paste in the selection pop up menu.</li>
+        <li><div>Rename the bookmark to reflect the function of the
+              bookmarklet.</div>
+            <div>Also (for iPads), you might want to put the
+              bookmarklet in the special Bookmarks Bar folder so
+              that it appears when you tap on the main URL
+              bar.</div></li>
+      </ol>
+      </li>
+    </ol>
+
+    <p>
+    The first two steps (create a bookmark, copy bookmarklet code)
+    can be done in any order.
+    </p>
+
+    <h2 id="how">How do I use this bookmarklet?</h2>
+
+    <p>
+    The bookmarklet from this page will modify all bookmarklets on
+    your current page so that they display their code instead of
+    running that code. Once you have it installed as a bookmarklet,
+    you can use it on other pages to install bookmarklets that are
+    otherwise not directly installable (in Mobile Safari).
+    </p>
+
+    <p>
+    When a modified bookmarklet is triggered, the whole page is
+    overlaid with a temporary "code display". It will look something like this:
+    </p>
+
+    <div id="demo-overlay">
+      <div id="demo-container">
+        <div id="demo-instructions">
+          <div><a href="javascript:void('noop')">Tap to disable.</a></div>
+          <div>Tap outside to return.</div>
+        </div>
+        <textarea id="demo-textarea" rows="20" cols="2">javascript:'The code is shown here.'</textarea>
+      </div>
+    </div>
+
+    <p>
+    While the code is displayed, you may:
+    </p>
+    <ul>
+      <li>select and Copy it (to make save a bookmarklet in Mobile
+      Safari), or</li>
+      <li>tap anywhere outside the main box to return to the
+      original page, or </li>
+      <li>tap on the "disable" link inside the main box to disable
+      bookmarklet viewing (i.e. make tapping on a bookmarklet run
+      its code, like normal).</li>
+    </ul>
+
+    <h2 id="install">How do I install this bookmarklet?</h2>
+
+    <p>
+    Use the bookmarklet <a href="#try">link on this page</a> to
+    reveal its own source code.
+    </p>
+
+    <ol>
+      <li>Tap it once to enable the viewing functionality.</li>
+      <li>Tap it again to actually view its source code.</li>
+      <li>Use the <a href="#bookmarklet-steps">workaround bookmarklet
+        installation procedure</a> to install this bookmarklet.</li>
+      <li>Use it on any other page with bookmarklets.</li>
+    </ol>
+  </body>
+</html>
