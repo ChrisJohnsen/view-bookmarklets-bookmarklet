@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -ue
+
+test $# -ge 1 || { echo "usage: $0 file1.js [file2.js [...]]"; exit 1; }
+
+jsc=/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc
+test -x "$jsc" || { echo "Not found: $jsc"; exit 2; }
+
+mydir=$(dirname "$0")
+
+for f; do
+    "$jsc" "$mydir"/jslint-jsc.js -- "$mydir/JSLint/jslint.js" "$f" <$f
+done
