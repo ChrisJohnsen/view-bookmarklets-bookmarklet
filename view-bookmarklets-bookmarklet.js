@@ -16,6 +16,7 @@
  */
 
 /*jslint browser: true, vars: true, plusplus: true, 'continue': true */
+/*jshint plusplus: false */
 /*globals unescape, enableBookmarkletViewing: true */
 
 enableBookmarkletViewing = (function() {

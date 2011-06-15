@@ -2,13 +2,19 @@
 
 set -ue
 
-test $# -ge 1 || { echo "usage: $0 file1.js [file2.js [...]]"; exit 1; }
+want_jshint=no
+test $# -ge 1 && test x"$1" = x--jshint && { want_jshint=yes; shift; }
+test $# -ge 1 ||
+    { echo "usage: $0 [--jshint] file1.js [file2.js [...]]"; exit 1; }
 
 jsc=/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc
 test -x "$jsc" || { echo "Not found: $jsc"; exit 2; }
 
 mydir=$(dirname "$0")
 
+func=JSLINT file=$mydir/JSLint/jslint.js
+test "$want_jshint" = yes && { func=JSHINT file=$mydir/jshint/jshint.js; }
+
 for f; do
-    "$jsc" "$mydir"/jslint-jsc.js -- "$mydir/JSLint/jslint.js" "$f" <$f
+    "$jsc" "$mydir"/jslint-jsc.js -- "$file" "$func" "$f" <$f
 done

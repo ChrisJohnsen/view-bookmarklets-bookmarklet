@@ -53,12 +53,23 @@ update-ghp: dirty-check-ghp $(ALL_HTML)
 	git push
 
 lint: do-jslint do-jslint-html
+jslint-submods: JSLint jshint
 
+# If you do not want one of these, just mkdir the unwanted one
+# beforehand.
+#
+# If you do not want either of these, then there is no point using
+# the lint targets.
 JSLint:
 	git submodule update --init JSLint
+jshint:
+	git submodule update --init jshint
 
-do-jslint: JSLint
-	./jslint-jsc *.js
+JSHINT=
+#JSHINT= --jshint
+JSLINT=./jslint-jsc $(JSHINT)
+do-jslint: jslint-submods
+	$(JSLINT) *.js
 
-do-jslint-html: JSLint
-	./jslint-jsc *.html*
+do-jslint-html: jslint-submods
+	$(JSLINT) *.html*

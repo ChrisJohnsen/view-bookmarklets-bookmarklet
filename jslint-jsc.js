@@ -1,10 +1,11 @@
 /*
  * jslint-jsc.js
  *
- * Use JavaScriptCore to run JSLINT (from JSLint/jslint.js) on the
- * text read from stdin.
+ * Usage: jsc jslint-jsc.js -- [JSLint/jslint.js JSLINT filename] <filename
  *
- * /path/to/jsc /path/to/jslint-jsc.js -- [filename] <filename
+ * Use JavaScriptCore to run JSLINT (from JSLint/jslint.js) on the
+ * text read from stdin. The first two parameters can be useful to
+ * substitute jshint for JSLint.
  *
  * While the (optional) filename parameter is not used as a filename
  * (e.g. we never end up calling open(2) on it), it is included in
@@ -13,9 +14,10 @@
  */
 
 /*jslint plusplus: true */
-/*globals readline, load, JSLINT, print */
+/*jshint plusplus: false */
+/*globals readline, load, print */
 
-(function(args) {
+(function(global, args) {
     'use strict';
 
     /*
@@ -49,15 +51,17 @@
     }
 
     var jsLintPath = (args[0] || 'JSLint/jslint.js'),
-        pathname = (args[1] || '<stdin>'),
-        i, err;
+        jsLintObjName = (args[1] || 'JSHINT'),
+        pathname = (args[2] || '<stdin>'),
+        JSHINT, i, err;
     load(jsLintPath);
-    if (JSLINT(readStdin(), null)) {
-        print(pathname + ': Passed JSLint');
+    JSHINT = global[jsLintObjName];
+    if (JSHINT(readStdin(), null)) {
+        print(pathname + ': Passed ' + jsLintObjName);
     } else {
-        for (i = 0; i < JSLINT.errors.length; i++) {
-            err = JSLINT.errors[i];
+        for (i = 0; i < JSHINT.errors.length; i++) {
+            err = JSHINT.errors[i];
             print(pathname + ':' + err.line + ' ' + err.reason);
         }
     }
-}(arguments));
+}(this, arguments));
