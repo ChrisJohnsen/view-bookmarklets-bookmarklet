@@ -132,14 +132,14 @@ enableBookmarkletViewing = (function() {
             displayTextarea.select();
         };
 
-        disableContainer.insertBefore(disableLink, null);
-        instructionContainer.insertBefore(disableContainer, null);
-        instructionContainer.insertBefore(returnText, null);
-        container.insertBefore(instructionContainer, null);
-        container.insertBefore(displayTextarea, null);
-        overlay.insertBefore(container, null);
+        disableContainer.appendChild(disableLink);
+        instructionContainer.appendChild(disableContainer);
+        instructionContainer.appendChild(returnText);
+        container.appendChild(instructionContainer);
+        container.appendChild(displayTextarea);
+        overlay.appendChild(container);
         document.getElementsByTagName('body')[0].
-            insertBefore(overlay, null);
+            appendChild(overlay);
         return displayTextarea.vbb_dbs;
     }());
 
