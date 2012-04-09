@@ -130,5 +130,6 @@ enableBookmarkletViewing = (function() {
 
     return function() {
         window.addEventListener('click', handleClick, true);
+        alert('Tap or click a bookmarklet to view its code.')
     };
 }());
