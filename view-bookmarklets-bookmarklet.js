@@ -102,7 +102,7 @@ enableBookmarkletViewing = (function() {
     var displayTextarea = document.createElement('textarea');
     style = displayTextarea.style;
     style.width = '100%';
-    style.height = '70%';
+    style.height = '150px';
     displayTextarea.id = 'vbb_textarea';
 
     disableContainer.appendChild(disableLink);
