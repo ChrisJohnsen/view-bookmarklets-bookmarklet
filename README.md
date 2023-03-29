@@ -1,4 +1,4 @@
-Visit the home page: http://chrisjohnsen.github.com/view-bookmarklets-bookmarklet
+Visit the home page: http://chrisjohnsen.github.io/view-bookmarklets-bookmarklet
 
 Alternatives:
 
